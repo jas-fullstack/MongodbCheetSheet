@@ -1,37 +1,118 @@
-## Welcome to GitHub Pages
+<!DOCTYPE html>
+<html lang="en">
 
-You can use the [editor on GitHub](https://github.com/kumarsanju54/MongodbCheetSheet/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Potta+One&family=Roboto:wght@100&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="prism.css">
+    <script src="prism.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>HTML Cheatsheet by CodeWithHarry</title>
+</head>
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+<body>
+    <nav>
+        <span class="logo"><img src="copy.png" alt=""></span>
+        <div class="content center">
+            Mongodb Chat sheet!
+        </div>
+    </nav>
+    <div class="container">
+        <ol>
+            <!-- <li><b>HTML Boilerplate:</b> This is the basic html boilerplate code
+                <pre class="language-html"><code>&lt;!DOCTYPE html&gt; &lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Document&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    
+&lt;/body&gt;
+&lt;/html&gt; </code></pre>
+            </li> -->
+            <li><b></b> find and sort
+                <pre class="language-js"><code>db.users.find().sort( { _id: -1 } ) </code></pre>
+            </li>
 
-### Markdown
+            <li><b></b> Mongodb save or update
+                <pre class="language-js"><code>
+    await UserModel.update({ userId: request.user_id }, {
+        $set: {
+            userId: request.user_id,
+            isFollowing : true,
+            createdAt: new Date
+        }
+        }, {  upsert: true}); </code></pre>
+            </li>
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+            <li><b></b> Mongo aggrigation , subquery , get data from other table based on condition
+                <pre class="language-js"><code>
+{
+$lookup:
+{
+    from: "payments",
+    let: { userId: "$userId", paymentStatus: "$paymentStatus" },
+    pipeline: [
+    {
+        $match:
+        {
+        $expr:
+        {
+            $and:
+            [
+                { $eq: ["$$userId", "$userId"] },
+                { $eq: ["$paymentStatus", "Paid"] }
+            ]
+        }
+        }
+    }
+    ],
+    as: "lastPayment"
+}
+}</code></pre>
+            </li>
 
-```markdown
-Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
 
-- Bulleted
-- List
+            <li><b></b> Mongo aggrigation , subquery , count number of results.
+                <pre class="language-js">
+            <b>pass number object e.g user </b>
+<code>
 
-1. Numbered
-2. List
+{
+    $project: {
+        total_users: { $size: "$user" },
+        
+    }
+    }
+}</code></pre>
+            </li>
+<li><b></b> Simple lookup exampple
+                <pre class="language-js">
+<code>
+{
+    $lookup: {
+        from: 'userdata',
+        localField: 'from_main table',
+        foreignField: 'from_userDataTable',
+        as: 'userData',
+    }
+    },
+</code>
+</pre>
+</li>
 
-**Bold** and _Italic_ and `Code` text
+           
 
-[Link](url) and ![Image](src)
-```
+            
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
-### Jekyll Themes
+        </ol>
+    </div>
+</body>
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/kumarsanju54/MongodbCheetSheet/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+</html>
