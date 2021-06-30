@@ -75,7 +75,27 @@ $lookup:
 }
 }</code></pre>
             </li>
-
+<li>
+    <code>
+          {
+        $project: {
+          payments_total: { $size: "$payments" },
+          attendevents_total: { $size: "$attendevents" },
+          subscriptions_total : {$size : "$subscriptions"},
+          payments: 1,
+          creditpackages : 1,
+          gymData: 1,
+          attendevents: 1,
+          userData: 1,
+          isFollowing : 1,
+          followDate : 1, 
+          unFollowDate : 1,
+          lastPayment : 1,
+          subscriptions : 1
+        }
+      },
+    </code>
+            </li>
 
 
             <li><b></b> Mongo aggrigation , subquery , count number of results.
